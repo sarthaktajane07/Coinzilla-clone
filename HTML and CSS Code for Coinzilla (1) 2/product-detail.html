@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details - Coinzilla</title>
+    <link rel="stylesheet" href="dashboard.css">
+    <style>
+        .product-container {
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .product-header {
+            display: flex;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        .product-image {
+            width: 400px;
+            height: 400px;
+            object-fit: contain;
+            background: #2d2d2d;
+            border-radius: 12px;
+            padding: 20px;
+        }
+        .product-info {
+            flex: 1;
+        }
+        .product-title {
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+        .product-price {
+            font-size: 1.5em;
+            color: #f39c12;
+            margin-bottom: 20px;
+        }
+        .product-description {
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+        .add-to-cart-btn {
+            background: #f39c12;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1em;
+            cursor: pointer;
+        }
+        .add-to-cart-btn:hover {
+            background: #e67e00;
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Navigation -->
+    <header class="top-nav">
+        <div class="nav-left">
+            <div class="logo">
+                <img src="image21.png" alt="Coinzilla">
+            </div>
+            <h1 class="page-title">Product Details</h1>
+        </div>
+        <div class="nav-right">
+            <div class="icon-group">
+                <a href="cart.html" class="cart-icon">🛒</a>
+            </div>
+            <div class="balance-display">
+                <span class="balance-icon">💰</span>
+                <span class="balance-amount">€0.00</span>
+            </div>
+        </div>
+    </header>
+
+    <div class="dashboard-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <nav class="sidebar-nav">
+                <ul>
+                    <li class="nav-item">
+                        <a href="dashboard.html">
+                            <span class="nav-icon">📊</span>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="nav-item active">
+                        <a href="marketplace.html">
+                            <span class="nav-icon">🛒</span>
+                            <span>Marketplace</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="product-container">
+                <div class="product-header">
+                    <img src="" alt="Product Image" class="product-image" id="productImage">
+                    <div class="product-info">
+                        <h1 class="product-title" id="productTitle"></h1>
+                        <div class="product-price" id="productPrice"></div>
+                        <p class="product-description" id="productDescription"></p>
+                        <button class="add-to-cart-btn" onclick="addToCart()">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Get product details from URL parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        let productName = urlParams.get('name');
+        let productPrice = urlParams.get('price');
+        let productImage = urlParams.get('image');
+
+        // Set defaults if missing
+        if (!productName) productName = 'Light Press Release on Cointelegraph (EN)';
+        if (!productPrice) productPrice = '1800';
+        if (!productImage) productImage = 'image22.png'; // Use your mascot or default image
+
+        // Update product details on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('productTitle').textContent = productName;
+            document.getElementById('productPrice').textContent = `€${productPrice}`;
+            document.getElementById('productImage').src = productImage;
+            document.getElementById('productDescription').textContent = 
+                'This is a premium service offered by Coinzilla. Our team will handle your request professionally and ensure the best results for your project.';
+        });
+
+        function addToCart() {
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            cart.push({
+                name: productName,
+                price: parseFloat(productPrice),
+                quantity: 1
+            });
+            localStorage.setItem('cart', JSON.stringify(cart));
+            alert('Added to cart!');
+        }
+    </script>
+</body>
+</html> 

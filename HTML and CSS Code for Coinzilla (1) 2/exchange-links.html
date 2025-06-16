@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>exchange-links</title>
+    <style>
+        /* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 20px;
+}
+
+/* Section Headers */
+h3 {
+    color: #333;
+    margin-bottom: 10px;
+}
+
+/* Exchange Links */
+.exchange-links {
+    background: #fff;
+    border-radius: 8px;
+    padding: 15px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.exchange-links ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.exchange-links li {
+    margin: 10px 0;
+}
+
+.exchange-links a {
+    text-decoration: none;
+    color: #007bff;
+    transition: color 0.3s;
+}
+
+.exchange-links a:hover {
+    color: #0056b3;
+}
+
+/* Quick Actions Section */
+.quick-actions {
+    margin-top: 20px;
+}
+
+.action-cards {
+    display: flex;
+    gap: 20px;
+}
+
+.action-card {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 15px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    flex: 1;
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.card-icon {
+    font-size: 24px;
+}
+
+.card-value {
+    font-size: 32px;
+    margin: 10px 0;
+    color: #333;
+}
+
+.card-subtitle {
+    font-size: 14px;
+    color: #777;
+}
+
+.card-action {
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.card-action:hover {
+    background-color: #0056b3;
+}
+
+    </style>
+</head>
+<body>
+    <section class="exchange-links">
+        <h3>Exchange Links</h3>
+        <ul>
+            <li><a href="https://www.binance.com" target="_blank">Binance</a></li>
+            <li><a href="https://www.coinbase.com" target="_blank">Coinbase</a></li>
+            <li><a href="https://www.kraken.com" target="_blank">Kraken</a></li>
+            <li><a href="https://www.bitfinex.com" target="_blank">Bitfinex</a></li>
+        </ul>
+    </section>
+
+    <!-- Quick Actions -->
+    <section class="quick-actions">
+        <h3>Quick actions</h3>
+        <div class="action-cards">
+            <div class="action-card balance-card">
+                <div class="card-header">
+                    <span>Balance</span>
+                    <span class="card-icon">💰</span>
+                </div>
+                <div class="card-value">€0.00</div>
+                <button class="card-action">Billing Details ▶</button>
+            </div>
+            <div class="action-card websites-card">
+                <div class="card-header">
+                    <span>Websites</span>
+                    <span class="card-icon">🌐</span>
+                </div>
+                <div class="card-value">0/0</div>
+                <div class="card-subtitle">Running: 0</div>
+                <button class="card-action">Add Your Website ⊕</button>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

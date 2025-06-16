@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reports - Coinzilla</title>
+    <link rel="stylesheet" href="dashboard.css">
+    <style>
+/* General body styling */
+body {
+    font-family: 'Inter', Arial, sans-serif;
+    background-color: #121212; /* Dark background */
+    margin: 0;
+    padding: 20px;
+}
+
+/* Container for the reports */
+.report-container {
+    background-color: #1e1e1e; /* Card / Surface */
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+/* Heading styles */
+h1 {
+    color: #ffffff; /* Text Primary */
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+/* Form controls */
+input[type="date"],
+select {
+    width: 200px;
+    padding: 8px;
+    margin-right: 10px;
+    border: 1px solid #d3d3d3; /* Text Secondary */
+    border-radius: 4px;
+    background: #2d2d2d; /* Darker background */
+    color: #ffffff; /* Text Primary */
+}
+
+/* Report table styles */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    border: 1px solid #d3d3d3; /* Text Secondary */
+    padding: 10px;
+    text-align: center;
+    color: #ffffff; /* Text Primary */
+}
+
+th {
+    background-color: #f39c12; /* Accent Orange */
+    color: white;
+}
+
+tr:nth-child(even) {
+    background-color: #2d2d2d; /* Darker background */
+}
+
+/* Footer styles */
+footer {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 12px;
+    color: #d3d3d3; /* Text Secondary */
+}
+
+
+    </style>
+</head>
+<body class="dashboard-page">
+    <!-- Top Navigation -->
+    <header class="top-nav">
+        <div class="nav-left">
+            <div class="logo">
+                <img src="image21.png" alt="Coinzilla">
+            </div>
+            <div class="notification-icon">🔔</div>
+            <h1 class="page-title">Reports</h1>
+        </div>
+        <div class="nav-right">
+            <div class="balance-display">
+                <span class="balance-icon">💰</span>
+                <span class="balance-amount">€0.00</span>
+            </div>
+            <div class="user-profile" id="userProfile">
+                <div class="user-avatar">SA</div>
+                <div class="user-info">
+                    <span class="user-name" id="userName">Sarthak Tajane</span>
+                    <span class="user-role">Publisher ▼</span>
+                </div>
+                <div class="user-dropdown" id="userDropdown" style="display:none;">
+                    <div class="dropdown-header">
+                        <span class="dropdown-label">Signed in as</span>
+                        <span class="dropdown-email">7522sarthaksuniltajane@gmail.com</span>
+                    </div>
+                    <a href="coin-portfolio.html" class="dropdown-link">Coin Portfolio</a>
+                    <a href="exchange-links.html" class="dropdown-link">Exchange Links</a>
+                    <a href="#" class="dropdown-link"><span class="dropdown-icon">⚙️</span> Settings</a>
+                    <a href="#" class="dropdown-link"><span class="dropdown-icon">👤</span> Refer a friend</a>
+                    <a href="#" class="dropdown-link logout"><span class="dropdown-icon">↩️</span> Logout</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="dashboard-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <nav class="sidebar-nav">
+                <ul>
+                    <li class="nav-item">
+                        <a href="dashboard.html">
+                            <span class="nav-icon">📊</span>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#websites">
+                            <span class="nav-icon">🌐</span>
+                            <span>Websites</span>
+                            <span class="nav-arrow">▶</span>
+                        </a>
+                    </li>
+                    <li class="nav-item active">
+                        <a href="reports.html">
+                            <span class="nav-icon">📈</span>
+                            <span>Reports</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#billing">
+                            <span class="nav-icon">💳</span>
+                            <span>Billing Center</span>
+                            <span class="nav-arrow">▶</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="crypto-table.html">
+                            <span class="nav-icon">💹</span>
+                            <span>Real-time Crypto Table</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="wallet-sync.html" id="wallet-sync-link">
+                            <span class="nav-icon">🔗</span>
+                            <span>Wallet Sync</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="marketplace.html">
+                            <span class="nav-icon">🛒</span>
+                            <span>Coinzilla Marketplace</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="reports-header">
+                <div class="reports-filters">
+                    <div class="filter-group">
+                        <label>Period</label>
+                        <input type="text" value="2025-06-05 - 2025-06-12" readonly style="width:180px;">
+                    </div>
+                    <div class="filter-group">
+                        <label>Websites</label>
+                        <select>
+                            <option>All Websites & Ad Types</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label>Reports By</label>
+                        <select>
+                            <option>Date</option>
+                        </select>
+                    </div>
+                    <button class="generate-report-btn">Generate Report</button>
+                </div>
+            </div>
+            <div class="reports-summary">
+                <div class="summary-card">
+                    <div class="summary-label">IMPRESSIONS</div>
+                    <div class="summary-value">0</div>
+                </div>
+                <div class="summary-card">
+                    <div class="summary-label">CLICKS</div>
+                    <div class="summary-value">0</div>
+                </div>
+                <div class="summary-card">
+                    <div class="summary-label">CTR</div>
+                    <div class="summary-value">0.00%</div>
+                </div>
+                <div class="summary-card">
+                    <div class="summary-label">EARNINGS</div>
+                    <div class="summary-value">€0.00</div>
+                </div>
+            </div>
+            <div class="reports-table-controls">
+                <label>Show
+                    <select>
+                        <option>10</option>
+                    </select>
+                    entries
+                </label>
+                <input type="search" placeholder="Search" style="float:right;">
+            </div>
+            <table class="reports-table">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Impressions</th>
+                        <th>Clicks</th>
+                        <th>CTR%</th>
+                        <th>Amount</th>
+                        <th>eCPM</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>2025-06-12</td><td>0</td><td>0</td><td>0.00%</td><td>€0.00</td><td>€0.00</td></tr>
+                    <tr><td>2025-06-11</td><td>0</td><td>0</td><td>0.00%</td><td>€0.00</td><td>€0.00</td></tr>
+                    <tr><td>2025-06-10</td><td>0</td><td>0</td><td>0.00%</td><td>€0.00</td><td>€0.00</td></tr>
+                    <tr><td>2025-06-09</td><td>0</td><td>0</td><td>0.00%</td><td>€0.00</td><td>€0.00</td></tr>
+                    <tr><td>2025-06-08</td><td>0</td><td>0</td><td>0.00%</td><td>€0.00</td><td>€0.00</td></tr>
+                    <tr><td>2025-06-07</td><td>0</td><td>0</td><td>0.00%</td><td>€0.00</td><td>€0.00</td></tr>
+                    <tr><td>2025-06-06</td><td>0</td><td>0</td><td>0.00%</td><td>€0.00</td><td>€0.00</td></tr>
+                    <tr><td>2025-06-05</td><td>0</td><td>0</td><td>0.00%</td><td>€0.00</td><td>€0.00</td></tr>
+                </tbody>
+            </table>
+            <div class="reports-footer">
+                <div>Showing 1 to 8 of 8 entries</div>
+                <button class="export-btn">Export</button>
+            </div>
+            <div class="reports-pagination">
+                <span class="pagination-btn active">1</span>
+            </div>
+            <div class="reports-note">
+                The data is available for only 1 year. Please download it regularly.
+            </div>
+        </main>
+    </div>
+    <script src="js/script.js"></script>
+    <script>
+      // User dropdown logic
+      const userProfile = document.getElementById('userProfile');
+      const userDropdown = document.getElementById('userDropdown');
+      document.addEventListener('click', function(e) {
+        if (userProfile.contains(e.target)) {
+          userDropdown.style.display = userDropdown.style.display === 'block' ? 'none' : 'block';
+        } else {
+          userDropdown.style.display = 'none';
+        }
+      });
+      // Logout redirect logic
+      const logoutLink = document.querySelector('.logout');
+      if (logoutLink) {
+        logoutLink.addEventListener('click', function(e) {
+          e.preventDefault();
+          window.location.href = 'index.html';
+        });
+      }
+    </script>
+</body>
+</html> 

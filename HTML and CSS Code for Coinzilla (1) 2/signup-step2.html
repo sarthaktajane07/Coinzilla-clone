@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Sign Up - Account Setup | Coinzilla</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <style>
+ body.signup-page {
+    margin: 0;
+    font-family: 'Inter', Arial, sans-serif;
+    background: #1e1e1e; /* Background */
+}
+
+.container {
+    display: flex;
+    min-height: 100vh;
+    height: 100vh;
+}
+
+.left-side {
+    flex: 1.2;
+    background: #000000; /* Card / Surface */
+    display: flex;
+    flex-direction: column;
+    justify-content: stretch;
+    align-items: stretch;
+    padding: 0;
+    position: relative;
+    height: 100vh;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #ffffff; /* Text Primary */
+    margin-bottom: 32px;
+}
+
+.logo img {
+    height: 38px;
+    width: 100%;
+}
+
+.illustration {
+    flex: 1;
+    display: flex;
+    align-items: stretch;
+    justify-content: stretch;
+    height: 100vh;
+    background: none;
+}
+
+.illustration img {
+    width: 100%;
+    height: 100vh;
+    max-width: none;
+    object-fit: cover;
+    background: none;
+    display: block;
+}
+
+.top-right-link {
+    position: absolute;
+    top: 32px;
+    right: 48px;
+    font-size: 1rem;
+    color: #ffffff; /* Text Primary */
+    opacity: 0.7;
+}
+
+.top-right-link a {
+    color: #f39c12; /* Accent Orange */
+    font-weight: 600;
+    text-decoration: none;
+    margin-left: 4px;
+    transition: color 0.2s;
+}
+
+.top-right-link a:hover {
+    color: #e67e22; /* CTA / Highlight */
+}
+
+.right-side {
+    flex: 1;
+    background: #1f1e1e; /* Deep dark navy with a hint of purple */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 48px 48px 48px 48px;
+    min-width: 350px;
+    box-shadow: -2px 0 16px rgba(44, 44, 84, 0.04);
+    position: relative;
+}
+
+.signup-form {
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.signup-form h1 {
+    font-size: 2.1rem;
+    font-weight: 700;
+    margin-bottom: 32px;
+    color: #ffffff; /* Text Primary */
+}
+
+.step-indicator {
+    display: flex;
+    gap: 0;
+    margin-bottom: 24px;
+    border-radius: 8px;
+    overflow: hidden;
+    background: #2d2d44; /* Darker blue-gray background */
+    width: 100%;
+}
+
+.step {
+    flex: 1;
+    padding: 14px 0;
+    text-align: center;
+    font-size: 1.08rem;
+    font-weight: 600;
+    color: #f39c12; /* Accent Orange */
+    background: #2d2d44;
+    transition: background 0.2s, color 0.2s;
+}
+
+.step.active {
+    background: #e67e22; /* CTA / Highlight */
+    color: #121212; /* Dark text on bright background */
+}
+
+.form-row {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 18px;
+}
+
+.form-group {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    font-size: 1rem;
+    margin-bottom: 6px;
+    color: #ffffff; /* Text Primary */
+    font-weight: 500;
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="password"] {
+    padding: 12px 14px;
+    border: 1.5px solid #d3d3d3; /* Text Secondary */
+    border-radius: 8px;
+    font-size: 1rem;
+    background: #1e1e2f; /* Deep dark navy */
+    color: #ffffff; /* Text Primary */
+    margin-bottom: 0;
+    transition: border 0.2s;
+}
+
+.form-group input:focus {
+    border-color: #f39c12; /* Accent Orange */
+    outline: none;
+}
+
+.form-group .input-icon {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.form-group .input-icon input {
+    width: 100%;
+    padding-right: 36px;
+}
+
+.form-group .toggle-password {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.1rem;
+    color: #d3d3d3; /* Text Secondary */
+}
+
+.password-hints {
+    font-size: 0.95rem;
+    color: #95a5a6; /* Text Secondary */
+    margin: 8px 0 0 0;
+    padding-left: 0;
+    list-style: none;
+}
+
+.password-hints li {
+    margin-bottom: 2px;
+}
+
+.form-check {
+    margin: 18px 0 24px 0;
+    display: flex;
+    align-items: center;
+    font-size: 0.98rem;
+}
+
+.form-check input[type="checkbox"] {
+    margin-right: 8px;
+    accent-color: #f39c12; /* Accent Orange */
+}
+
+.form-check label {
+    color: #ffffff; /* Text Primary */
+}
+
+.form-check a {
+    color: #f39c12; /* Accent Orange */
+    text-decoration: underline;
+    margin: 0 2px;
+}
+
+.form-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    margin-top: 18px;
+}
+
+.btn {
+    padding: 12px 28px;
+    border-radius: 8px;
+    font-size: 1.08rem;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-primary {
+    background: #f39c12; /* Accent Orange */
+    color: #fff;
+}
+
+.btn-primary:disabled {
+    background: #555;
+    cursor: not-allowed;
+}
+
+.btn-outline {
+    background: #fff;
+    color: #f39c12; /* Accent Orange */
+    border: 1.5px solid #f39c12; /* Accent Orange */
+}
+
+.btn-outline:hover {
+    background: #f7f4fa; /* Light background on hover */
+}
+
+@media (max-width: 900px) {
+    .container {
+        flex-direction: column;
+    }
+
+    .left-side, .right-side {
+        flex: unset;
+        width: 100%;
+        min-width: 0;
+        padding: 32px 16px;
+    }
+
+    .right-side {
+        box-shadow: none;
+        padding-top: 0;
+    }
+
+    .top-right-link {
+        position: static;
+        float: right;
+        margin-bottom: 18px;
+    }
+}
+
+@media (max-width: 600px) {
+    .signup-form h1 {
+        font-size: 1.4rem;
+    }
+
+    .form-row {
+        flex-direction: column;
+        gap: 0;
+    }
+}
+
+  </style>
+</head>
+<body class="signup-page">
+  <div class="container">
+    <!-- Left side with illustration -->
+    <div class="left-side">
+      <div class="illustration">
+        <img src="main.png" alt="Mascot at desk" />
+      </div>
+      <div class="top-right-link">
+        <span>Already on Coinzilla? <a href="login.html">Login</a></span>
+      </div>
+    </div>
+    <!-- Right side with signup form -->
+    <div class="right-side">
+      <form class="signup-form">
+        <h1>Sign up</h1>
+        <div class="step-indicator">
+          <div class="step">Account Type</div>
+          <div class="step active">Account Setup</div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="firstName">First Name</label>
+            <input type="text" id="firstName" placeholder="First Name" required>
+          </div>
+          <div class="form-group">
+            <label for="lastName">Last Name</label>
+            <input type="text" id="lastName" placeholder="Last Name" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" placeholder="Enter your email address" required>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="password">Password</label>
+            <div class="input-icon">
+              <input type="password" id="password" placeholder="Enter your password" required>
+              <button type="button" class="toggle-password" onclick="togglePassword('password', this)">👁</button>
+            </div>
+            <ul class="password-hints">
+              <li>• One uppercase character</li>
+              <li>• One lowercase character</li>
+              <li>• One number</li>
+              <li>• One special character</li>
+              <li>• 8 characters minimum</li>
+            </ul>
+          </div>
+          <div class="form-group">
+            <label for="confirmPassword">Confirm Password</label>
+            <div class="input-icon">
+              <input type="password" id="confirmPassword" placeholder="Enter your password" required>
+              <button type="button" class="toggle-password" onclick="togglePassword('confirmPassword', this)">👁</button>
+            </div>
+          </div>
+        </div>
+        <div class="form-check">
+          <input type="checkbox" id="terms" required>
+          <label for="terms">I agree to the <a href="#">Terms and Conditions</a> and <a href="#">Policies</a>.</label>
+        </div>
+        <div class="form-actions">
+          <button type="button" class="btn btn-outline" onclick="window.history.back()">
+            &larr; Previous
+          </button>
+          <button type="submit" class="btn btn-primary">
+            Create Account &rarr;
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <script>
+function togglePassword(id, btn) {
+    const input = document.getElementById(id);
+    if (input.type === 'password') {
+      input.type = 'text';
+      btn.textContent = '🙈';
+    } else {
+      input.type = 'password';
+      btn.textContent = '👁';
+    }
+  }
+
+
+  document.querySelector('.signup-form').addEventListener('submit', function(e) {
+    e.preventDefault(); 
+    window.location.href = 'dashboard.html';
+  });
+  </script>
+</body>
+</html>

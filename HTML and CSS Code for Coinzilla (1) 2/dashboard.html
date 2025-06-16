@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Coinzilla</title>
+    <!-- Google Fonts: Inter only -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="dashboard.css">
+    <style>
+      body {
+        font-family: 'Inter', sans-serif;
+        font-weight: 400;
+      }
+      h1, .page-title, .stat-value, .balance-amount, .item-price {
+        font-weight: 700;
+      }
+      h2, h3, .marketplace-section h3, .news-section h3, .item-content h4 {
+        font-weight: 600;
+      }
+      p, .item-category, .news-date, .news-excerpt, .user-role, .dropdown-label, .dropdown-email {
+        font-weight: 300;
+      }
+      /* Ensure normal text and button labels are regular */
+      button, .fix-link, .read-more, .sidebar-nav .nav-item a, .user-name {
+        font-weight: 400;
+      }
+      .item-action {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: #f39c12;
+        color: white;
+        font-size: 1.2rem;
+        transition: transform 0.2s, background-color 0.2s;
+        cursor: pointer;
+      }
+      .item-action:hover {
+        transform: scale(1.1);
+        background: #e67e00;
+      }
+    </style>
+</head>
+
+<body class="dashboard-page">
+    <!-- Top Navigation -->
+    <header class="top-nav">
+        <div class="nav-left">
+            <div class="logo">
+                <img src="image21.png" alt="coinzilla logo" width="120px" height="34px">
+            </div>
+            <div class="notification-icon">🔔</div>
+            <h1 class="page-title">Dashboard</h1>
+        </div>
+        <div class="nav-right">
+            <div class="balance-display">
+                <span class="balance-icon">💰</span>
+                <span class="balance-amount">€0.00</span>
+            </div>
+            <div class="user-profile" id="userProfile">
+                <div class="user-avatar">SA</div>
+                <div class="user-info">
+                    <span class="user-name" id="userName">Sarthak Tajane</span>
+                    <span class="user-role">Publisher ▼</span>
+                </div>
+                <div class="user-dropdown" id="userDropdown" style="display:none;">
+                    <div class="dropdown-header">
+                        <span class="dropdown-label">Signed in as</span>
+                        <span class="dropdown-email">7522sarthaksuniltajane@gmail.com</span>
+                    </div>
+                    
+                    <a href="#" class="dropdown-link"><span class="dropdown-icon">⚙️</span> Settings</a>
+                    <a href="#" class="dropdown-link"><span class="dropdown-icon">👤</span> Refer a friend</a>
+                    <a href="coin-portfolio.html" class="dropdown-link"><span class="dropdown-icon">↩️</span> Coin-portfolio</a>
+                    <a href="exchange-links.html" class="dropdown-link"><span class="dropdown-icon">↩️</span> exchange-links</a>
+                    <a href="#" class="dropdown-link logout"><span class="dropdown-icon">↩️</span> Logout</a>
+                </div>
+                </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="dashboard-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <nav class="sidebar-nav">
+                <ul>
+                    <li class="nav-item active">
+                        <a href="#dashboard">
+                            <span class="nav-icon">📊</span>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="marketplace.html">
+                            <span class="nav-icon">🛒</span>
+                            <span>Marketplace</span>
+                        </a>
+                    </li>
+                 
+                    <li class="nav-item">
+                        <a href="reports.html">
+                            <span class="nav-icon">📈</span>
+                            <span>Reports</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#billing">
+                            <span class="nav-icon">💳</span>
+                            <span>Billing Center</span>
+                            <span class="nav-arrow">▶</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="crypto-table.html">
+                            <span class="nav-icon">💹</span>
+                            <span>Real-time Crypto Table</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="wallet-sync.html" id="wallet-sync-link">
+                            <span class="nav-icon">🔗</span>
+                            <span>Wallet Sync</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="price-alert.html" id="price-alert-link">
+                            <span class="nav-icon">⏰</span>
+                            <span>Price Alert</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="cart.html">
+                            <span class="nav-icon">🛒</span>
+                            <span>Cart</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Billing Alert -->
+            <div class="alert-banner">
+                <span class="alert-icon">⚠️</span>
+                <span>Please complete your billing details to have your account fully functional.</span>
+                <a href="#" class="fix-link">Fix it ▶</a>
+            </div>
+
+            <!-- Welcome Section -->
+            <section class="welcome-section">
+                <div class="welcome-icon">📧</div>
+                <div class="welcome-text">
+                    <h2>Welcome, Sarthak!</h2>
+                    <p>You can always add new websites into your account.</p>
+                    <p>Our team will verify your website in less than 24h and you can start earning right after that!</p>
+                </div>
+            </section>
+
+           
+            
+
+            <!-- Today's Stats -->
+            <section class="stats-section">
+                <h3>Today's Stats</h3>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-header">
+                            <span>IMPRESSIONS</span>
+                            <span class="stat-icon purple">📱</span>
+                        </div>
+                        <div class="stat-value">0</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-header">
+                            <span>CLICKS</span>
+                            <span class="stat-icon orange">👆</span>
+                        </div>
+                        <div class="stat-value">0</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-header">
+                            <span>CTR</span>
+                            <span class="stat-icon gray">%</span>
+                        </div>
+                        <div class="stat-value">0.00%</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-header">
+                            <span>EARNINGS</span>
+                            <span class="stat-icon teal">€</span>
+                        </div>
+                        <div class="stat-value">€0.00</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Content Sections -->
+            <div class="content-grid">
+                <!-- Coinzilla Marketplace -->
+                <section class="marketplace-section">
+                    <h3>Coinzilla Marketplace</h3>
+                    <div class="marketplace-items">
+                        <div class="marketplace-item">
+                            <div class="item-icon">📰</div>
+                            <div class="item-content">
+                                <h4>Light Press Release on Cointelegraph (EN)</h4>
+                                <p class="item-category">Press Release / Blockchain & Crypto</p>
+                                <div class="item-price">€2,800.00</div>
+                            </div>
+                            <a href="product-detail.html" class="item-action" style="text-decoration: none; color: inherit;">→</a>
+                        </div>
+                        <!-- Additional marketplace items... -->
+                    </div>
+                    <button class="marketplace-cta">🛒 Coinzilla Marketplace</button>
+                </section>
+
+                <!-- News & Tutorials -->
+                <section class="news-section">
+                    <h3>News & Tutorials</h3>
+                    <div class="news-items">
+                        <article class="news-item">
+                            <h4>Coinzilla at TOKEN2049 Dubai 2025: Meet Us at Booth P78</h4>
+                            <p class="news-date">1st of May 2025</p>
+                            <p class="news-excerpt">The countdown is on: TOKEN2049 Dubai kicks off on April 30, and Coinzilla will be the...</p>
+                            <a href="https://coinzilla.com/blog/coinzilla-at-token2049-dubai-2025-meet-us-at-booth-p78/" class="read-more" target="_blank">Read more ▶</a>
+                        </article>
+                        <!-- Additional news items... -->
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <!-- Chat Widget -->
+    <div class="chat-widget">
+        <button class="chat-button">💬</button>
+    </div>
+
+    <script src="js/script.js"></script>
+    <script>
+      // Real-time price updates using Binance WebSocket
+      const ws = new WebSocket('wss://stream.binance.com:9443/ws/!miniTicker@arr');
+      const symbolMap = {
+        'BTCUSDT': 'Bitcoin (BTC)',
+        'ETHUSDT': 'Ethereum (ETH)',
+        'BNBUSDT': 'BNB (BNB)',
+        'SOLUSDT': 'Solana (SOL)',
+        'DOGEUSDT': 'Dogecoin (DOGE)'
+      };
+      ws.onmessage = function(event) {
+        const data = JSON.parse(event.data);
+        data.forEach(ticker => {
+          if(symbolMap[ticker.s]) {
+            const row = document.querySelector(`.realtime-price-row[data-symbol="${ticker.s}"] .crypto-price`);
+            if(row) {
+              row.textContent = '$' + parseFloat(ticker.c).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 8});
+            }
+          }
+        });
+      };
+
+      // Wallet Sync Logic
+      const connectWalletBtn = document.getElementById('connectWalletBtn');
+      const walletStatus = document.getElementById('walletStatus');
+      const walletAddress = document.getElementById('walletAddress');
+      const walletBalance = document.getElementById('walletBalance');
+
+      if (connectWalletBtn) {
+        connectWalletBtn.addEventListener('click', async () => {
+          if (window.ethereum) {
+            try {
+              const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+              const account = accounts[0];
+              walletStatus.textContent = 'Connected';
+              walletAddress.textContent = 'Address: ' + account;
+              const balanceWei = await window.ethereum.request({ method: 'eth_getBalance', params: [account, 'latest'] });
+              const balanceEth = parseFloat(parseInt(balanceWei, 16) / 1e18).toFixed(4);
+              walletBalance.textContent = 'Balance: ' + balanceEth + ' ETH';
+            } catch (err) {
+              walletStatus.textContent = 'Connection failed';
+              walletAddress.textContent = '';
+              walletBalance.textContent = '';
+            }
+          } else {
+            walletStatus.textContent = 'MetaMask not found. Please install MetaMask.';
+            walletAddress.textContent = '';
+            walletBalance.textContent = '';
+          }
+        });
+      }
+
+      // User dropdown logic
+      const userProfile = document.getElementById('userProfile');
+      const userDropdown = document.getElementById('userDropdown');
+      const userRole = document.querySelector('.user-role');
+      document.addEventListener('click', function(e) {
+        if (userRole && userRole.contains(e.target)) {
+          userDropdown.style.display = userDropdown.style.display === 'block' ? 'none' : 'block';
+        } else if (!userDropdown.contains(e.target)) {
+          userDropdown.style.display = 'none';
+        }
+      });
+
+      // Logout redirect logic
+      const logoutLink = document.querySelector('.logout');
+      if (logoutLink) {
+        logoutLink.addEventListener('click', function(e) {
+          e.preventDefault();
+          window.location.href = 'index.html';
+        });
+      }
+    </script>
+</body>
+</html>
+
+
+

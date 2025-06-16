@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>coin-portfolio</title>
+    <style>
+        /* Body styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #252525;
+    margin: 0;
+    padding: 20px;
+}
+
+/* Section styles */
+.coin-list {
+    background-color: #fdfdfd;
+    border: 1px solid #dddddd;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Header styles */
+h3 {
+    color: #000000;
+}
+
+/* Table styles */
+.coin-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+.coin-table th, .coin-table td {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 10px;
+}
+
+.coin-table th {
+    background-color: #f2f2f2;
+    color: #000000;
+}
+
+.coin-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.coin-table tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Additional styling for better appearance */
+.coin-table td {
+    font-size: 14px;
+    color: #555;
+}
+
+    </style>
+</head>
+<body>
+    <section class="coin-list">
+        <h3>Your Coin Portfolio</h3>
+        <table class="coin-table">
+            <thead>
+                <tr>
+                    <th>Coin</th>
+                    <th>Amount</th>
+                    <th>Current Price</th>
+                    <th>Total Value</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Bitcoin (BTC)</td>
+                    <td>0.5</td>
+                    <td>€30,000.00</td>
+                    <td>€15,000.00</td>
+                </tr>
+                <tr>
+                    <td>Ethereum (ETH)</td>
+                    <td>2.0</td>
+                    <td>€2,000.00</td>
+                    <td>€4,000.00</td>
+                </tr>
+                <tr>
+                    <td>Cardano (ADA)</td>
+                    <td>1000</td>
+                    <td>€1.00</td>
+                    <td>€1,000.00</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+</body>
+</html>

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wallet Sync - Coinzilla</title>
+    <link rel="stylesheet" href="dashboard.css">
+</head>
+
+<body class="dashboard-page">
+    <!-- Top Navigation -->
+    <header class="top-nav">
+        <div class="nav-left">
+            <div class="logo">
+                <img src="images/coinzilla-logo.png" alt="Coinzilla">
+                <span>coinzilla</span>
+            </div>
+            <div class="notification-icon">🔔</div>
+            <h1 class="page-title">Wallet Sync</h1>
+        </div>
+        <div class="nav-right">
+            <div class="balance-display">
+                <span class="balance-icon">💰</span>
+                <span class="balance-amount">€0.00</span>
+            </div>
+            <div class="user-profile">
+                <div class="user-avatar">SA</div>
+                <div class="user-info">
+                    <span class="user-name">Sarthak Tajane</span>
+                    <span class="user-role">Publisher ▼</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="dashboard-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <nav class="sidebar-nav">
+                <ul>
+                    <li class="nav-item">
+                        <a href="dashboard.html">
+                            <span class="nav-icon">📊</span>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#websites">
+                            <span class="nav-icon">🌐</span>
+                            <span>Websites</span>
+                            <span class="nav-arrow">▶</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#reports">
+                            <span class="nav-icon">📈</span>
+                            <span>Reports</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#billing">
+                            <span class="nav-icon">💳</span>
+                            <span>Billing Center</span>
+                            <span class="nav-arrow">▶</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="crypto-table.html">
+                            <span class="nav-icon">💹</span>
+                            <span>Real-time Crypto Table</span>
+                        </a>
+                    </li>
+                    <li class="nav-item active">
+                        <a href="wallet-sync.html">
+                            <span class="nav-icon">🔗</span>
+                            <span>Wallet Sync</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Wallet Sync Section -->
+            <section class="wallet-sync-section" id="wallet-sync">
+                <h3>Wallet Sync</h3>
+                <div class="wallet-sync-card">
+                    <button id="connectWalletBtn">Connect Wallet</button>
+                    <div id="walletStatus" class="wallet-status">Not connected</div>
+                    <div id="walletAddress" class="wallet-address"></div>
+                    <div id="walletBalance" class="wallet-balance"></div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Chat Widget -->
+    <div class="chat-widget">
+        <button class="chat-button">💬</button>
+    </div>
+
+    <script src="js/script.js"></script>
+    <script>
+        // Wallet Sync Logic
+        const connectWalletBtn = document.getElementById('connectWalletBtn');
+        const walletStatus = document.getElementById('walletStatus');
+        const walletAddress = document.getElementById('walletAddress');
+        const walletBalance = document.getElementById('walletBalance');
+
+        if (connectWalletBtn) {
+            connectWalletBtn.addEventListener('click', async () => {
+                if (window.ethereum) {
+                    try {
+                        const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+                        const account = accounts[0];
+                        walletStatus.textContent = 'Connected';
+                        walletAddress.textContent = 'Address: ' + account;
+                        // Get balance (in ETH)
+                        const balanceWei = await window.ethereum.request({ method: 'eth_getBalance', params: [account, 'latest'] });
+                        const balanceEth = parseFloat(parseInt(balanceWei, 16) / 1e18).toFixed(4);
+                        walletBalance.textContent = 'Balance: ' + balanceEth + ' ETH';
+                    } catch (err) {
+                        walletStatus.textContent = 'Connection failed';
+                        walletAddress.textContent = '';
+                        walletBalance.textContent = '';
+                    }
+                } else {
+                    walletStatus.textContent = 'MetaMask not found. Please install MetaMask.';
+                    walletAddress.textContent = '';
+                    walletBalance.textContent = '';
+                }
+            });
+        }
+    </script>
+</body>
+</html> 

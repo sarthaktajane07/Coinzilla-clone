@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login - Coinzilla</title>
+  <style>
+ /* General styles for login and signup pages */
+body.login-page, body.signup-page {
+    margin: 0;
+    font-family: 'Inter', Arial, sans-serif;
+    background: #121212; /* Dark background */
+}
+
+.container {
+    display: flex;
+    min-height: 100vh;
+    height: 100vh;
+}
+
+.left-side {
+    flex: 1.2;
+    background: #1e1e1e; /* Card / Surface */
+    display: flex;
+    flex-direction: column;
+    justify-content: stretch;
+    align-items: stretch;
+    padding: 0;
+    position: relative;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.illustration {
+    flex: 1;
+    display: flex;
+    align-items: stretch;
+    justify-content: stretch;
+    height: 100vh;
+    width: 100%;
+    position: relative;
+}
+
+.illustration img {
+    width: 100%;
+    height: 100vh;
+    max-width: none;
+    object-fit: cover;
+    display: block;
+    z-index: 1;
+}
+
+/* Add a dark overlay for better text contrast */
+.illustration::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(18,18,18,0.28);
+    z-index: 2;
+}
+
+.logo {
+    position: absolute;
+    top: 32px;
+    left: 32px;
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #ffffff; /* Text Primary */
+    text-shadow: 0 2px 8px rgba(0,0,0,0.18);
+    background: rgba(30,30,30,0.18);
+    border-radius: 8px;
+    padding: 6px 18px 6px 10px;
+}
+
+.logo img {
+    height: 38px;
+}
+
+.top-right-link {
+    position: absolute;
+    top: 32px;
+    right: 48px;
+    font-size: 1rem;
+    color: #d3d3d3; /* Text Secondary */
+    opacity: 0.95;
+    z-index: 3;
+    background: rgba(30,30,30,0.18);
+    border-radius: 8px;
+    padding: 6px 18px;
+}
+
+.top-right-link a {
+    color: #f39c12; /* Accent Orange */
+    font-weight: 600;
+    text-decoration: none;
+    margin-left: 4px;
+    transition: color 0.2s;
+}
+
+.top-right-link a:hover {
+    color: #e67e22; /* CTA / Highlight */
+}
+
+.right-side {
+    flex: 1;
+    background: #1e1e1e; /* Card / Surface */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 48px;
+    min-width: 350px;
+    box-shadow: -2px 0 16px rgba(44, 44, 84, 0.04);
+    position: relative;
+}
+
+.login-form h1 {
+    font-size: 2.1rem;
+    font-weight: 700;
+    margin-bottom: 32px;
+    color: #ffffff; /* Text Primary */
+}
+
+.form-group {
+    margin-bottom: 24px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 1.05rem;
+    font-weight: 500;
+    margin-bottom: 8px;
+    color: #ffffff; /* Text Primary */
+}
+
+input[type="email"], input[type="password"] {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1.5px solid #d3d3d3; /* Text Secondary */
+    border-radius: 8px;
+    font-size: 1rem;
+    background: #2d2d2d; /* Darker background */
+    color: #ffffff; /* Text Primary */
+    margin-bottom: 6px;
+    transition: border 0.2s;
+}
+
+input[type="email"]:focus, input[type="password"]:focus {
+    border-color: #f39c12; /* Accent Orange */
+    outline: none;
+}
+
+.password-input {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.toggle-password {
+    background: none;
+    border: none;
+    position: absolute;
+    right: 10px;
+    top: 8px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    color: #d3d3d3; /* Text Secondary */
+}
+
+.forgot-password {
+    display: block;
+    margin-top: 4px;
+    font-size: 0.98rem;
+    color: #f39c12; /* Accent Orange */
+    text-decoration: none;
+    float: right;
+}
+
+.forgot-password:hover {
+    text-decoration: underline;
+}
+
+.login-btn {
+    width: 100%;
+    padding: 13px 0;
+    background: #f39c12; /* Accent Orange */
+    color: #fff;
+    font-size: 1.08rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.2s;
+    margin-top: 12px;
+}
+
+.login-btn:hover {
+    background: #e67e22; /* CTA / Highlight */
+}
+
+@media (max-width: 900px) {
+    .container {
+        flex-direction: column;
+    }
+    .left-side, .right-side {
+        flex: unset;
+        width: 100%;
+        min-width: 0;
+        padding: 32px 16px;
+    }
+    .right-side {
+        box-shadow: none;
+        padding-top: 0;
+    }
+    .top-right-link {
+        position: static;
+        float: right;
+        margin-bottom: 18px;
+    }
+}
+
+  </style>
+</head>
+<body class="login-page">
+  <div class="container">
+    <!-- Left side with illustration -->
+    <div class="left-side">
+      <div class="illustration">
+        <img src="image11.png" alt="Mascot at desk" />
+      </div>
+      <div class="top-right-link">
+        <span>Not registered yet? <a href="sign.html">Create an account</a></span>
+      </div>
+    </div>
+
+    <!-- Right side with login form -->
+    <div class="right-side">
+      <div class="login-form">
+        <h1>Login</h1>
+        <form id="loginForm">
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required>
+          </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <div class="password-input">
+              <input type="password" id="password" name="password" required>
+              <button type="button" class="toggle-password" id="togglePassword">
+                <span class="eye-icon">👁</span>
+              </button>
+            </div>
+            <a href="#" class="forgot-password">Forgot password?</a>
+          </div>
+          <button type="submit" class="login-btn">Login</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script>
+
+  document.getElementById('loginForm').addEventListener('submit', function(e) {
+    e.preventDefault(); 
+    window.location.href = 'dashboard.html';
+  });
+
+
+  </script>
+</body>
+</html>
+

@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Crypto Table - Real-time Prices</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+ /* General Body Styles */
+body {
+    background: #121212; /* Dark background */
+    color: #e3e6ef; /* Light text color */
+    font-family: 'Inter', Arial, sans-serif;
+    margin: 0;
+    min-height: 100vh;
+}
+
+/* Sidebar Navigation */
+.crypto-sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 220px;
+    height: 100vh;
+    background: #1e1e1e; /* Card / Surface */
+    color: #fff;
+    padding: 32px 0;
+    border-right: 1px solid #1e1e1e; /* Dark border */
+    z-index: 10;
+}
+
+.crypto-sidebar ul {
+    list-style: none;
+    padding: 0; /* Remove default padding */
+    margin: 0;
+}
+
+.crypto-sidebar li {
+    margin-bottom: 12px; /* Increased spacing */
+}
+
+.crypto-sidebar a {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 12px 32px; /* Adjusted padding */
+    color: #e3e6ef; /* Text Primary */
+    text-decoration: none;
+    font-weight: 500;
+    border-radius: 8px;
+    transition: background 0.2s, color 0.2s;
+    font-size: 1.05rem;
+}
+
+.crypto-sidebar .active, .crypto-sidebar a:hover {
+    background: #f39c12; /* Accent Orange */
+    color: #fff;
+}
+
+/* Main Content */
+.crypto-main {
+    margin-left: 220px; /* Space for sidebar */
+    padding: 32px;
+    min-height: 100vh;
+    background: #121212; /* Dark background */
+}
+
+/* Header */
+.crypto-header {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 24px;
+    color: #fff; /* Text Primary */
+}
+
+/* Table Controls */
+.crypto-table-controls {
+    display: flex;
+    gap: 18px;
+    margin-bottom: 18px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.crypto-table-controls button {
+    background: #23272f; /* Dark button background */
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 18px;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.2s;
+    margin-bottom: 6px;
+}
+
+.crypto-table-controls .active {
+    background: #4b3fc9; /* Accent Purple */
+}
+
+/* Table Container */
+.crypto-table-container {
+    background: #23272f; /* Darker background */
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(44, 44, 84, 0.08);
+    padding: 0;
+    overflow-x: auto;
+}
+
+/* Crypto Table */
+table.crypto-table {
+    width: 100%;
+    border-collapse: collapse;
+    color: #e3e6ef; /* Light text color */
+    font-size: 1rem;
+}
+
+table.crypto-table th, table.crypto-table td {
+    padding: 12px 16px;
+    text-align: left;
+    border-bottom: 1px solid #444; /* Darker border */
+}
+
+table.crypto-table th {
+    background: #23272f; /* Dark header background */
+    color: #bfc8d6; /* Secondary text color */
+    font-weight: 600;
+    font-size: 1.01rem;
+}
+
+table.crypto-table tr:last-child td {
+    border-bottom: none; /* Remove border for last row */
+}
+
+/* Crypto Symbol */
+.crypto-symbol {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+}
+
+.crypto-symbol img {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    object-fit: contain;
+    background: #fff; /* Background for the image */
+}
+
+/* Price Indicators */
+.crypto-positive {
+    color: #00c48c; /* Positive price color */
+    font-weight: 600;
+}
+
+.crypto-negative {
+    color: #ff4d4f; /* Negative price color */
+    font-weight: 600;
+}
+
+/* Chart Cell */
+.crypto-chart-cell {
+    width: 80px;
+    min-width: 80px;
+    max-width: 80px;
+    padding: 0 !important;
+}
+
+.crypto-chart-canvas {
+    width: 80px !important;
+    height: 32px !important;
+    display: block;
+    background: transparent;
+}
+
+/* Large Chart Section */
+.large-chart-section {
+    margin-top: 40px;
+    background: #23272f; /* Dark background */
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(44, 44, 84, 0.08);
+    padding: 24px 24px 18px 24px;
+    max-width: 900px;
+}
+
+.large-chart-title {
+    color: #fff; /* Text Primary */
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 12px;
+}
+
+.large-chart-canvas {
+    width: 100%;
+    max-width: 850px;
+    height: 320px !important;
+    background: #181c23; /* Dark background */
+    border-radius: 8px;
+    margin: 0 auto;
+    display: block;
+}
+
+/* Responsive Styles */
+@media (max-width: 900px) {
+    .crypto-main {
+        margin-left: 0; /* Remove sidebar margin */
+        padding: 16px 4px;
+    }
+    .crypto-sidebar {
+        display: none; /* Hide sidebar on small screens */
+    }
+    .large-chart-section {
+        max-width: 100vw; /* Full width on small screens */
+        padding: 12px 2px;
+    }
+    .large-chart-canvas {
+        max-width: 98vw; /* Full width for chart */
+    }
+}
+
+  </style>
+</head>
+<body>
+  <nav class="crypto-sidebar">
+    <ul>
+      <li><a href="dashboard.html">Overview</a></li>
+      <li><a href="#" class="active">Crypto</a></li>
+      <li><a href="#">Stocks</a></li>
+      <li><a href="#">ETFs</a></li>
+      <li><a href="#">Mutual Funds</a></li>
+    </ul>
+  </nav>
+  <main class="crypto-main">
+    <div class="crypto-header">Crypto</div>
+    <div class="crypto-table-controls">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="most-active">Most Active</button>
+      <button class="filter-btn" data-filter="top-gainers">Top Gainers</button>
+      <button class="filter-btn" data-filter="top-losers">Top Losers</button>
+      <button class="filter-btn" data-filter="trending">Trending Now</button>
+      <button class="view-btn active">Table View</button>
+      <button class="view-btn">Heatmap View</button>
+    </div>
+    <div class="crypto-table-container">
+      <table class="crypto-table" id="crypto-table">
+        <thead>
+          <tr>
+            <th>Symbol</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Change</th>
+            <th>Change %</th>
+            <th>Market Cap</th>
+            <th>Volume</th>
+            <th>Chart</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- JS will fill this -->
+        </tbody>
+      </table>
+    </div>
+    <!-- Large Chart Section -->
+    <section class="large-chart-section">
+      <div class="large-chart-title" id="large-chart-title">Bitcoin USD (BTCUSDT) - Live Chart</div>
+      <canvas id="large-chart" class="large-chart-canvas"></canvas>
+    </section>
+  </main>
+  <script>
+    const cryptos = [
+      { symbol: 'BTCUSDT', name: 'Bitcoin USD', icon: 'https://cryptologos.cc/logos/bitcoin-btc-logo.png?v=026', marketCap: '2.166T', volume: '50.176B', trending: true },
+      { symbol: 'ETHUSDT', name: 'Ethereum USD', icon: 'https://cryptologos.cc/logos/ethereum-eth-logo.png?v=026', marketCap: '342.61B', volume: '31.598B', trending: true },
+      { symbol: 'USDTUSDT', name: 'Tether USDt USD', icon: 'https://cryptologos.cc/logos/tether-usdt-logo.png?v=026', marketCap: '155.051B', volume: '89.347B', trending: false },
+      { symbol: 'XRPUSDT', name: 'XRP USD', icon: 'https://cryptologos.cc/logos/xrp-xrp-logo.png?v=026', marketCap: '135.715B', volume: '2.918B', trending: false },
+      { symbol: 'BNBUSDT', name: 'BNB USD', icon: 'https://cryptologos.cc/logos/bnb-bnb-logo.png?v=026', marketCap: '93.984B', volume: '1.814B', trending: true },
+      { symbol: 'SOLUSDT', name: 'Solana USD', icon: 'https://cryptologos.cc/logos/solana-sol-logo.png?v=026', marketCap: '86.274B', volume: '6.031B', trending: true },
+      { symbol: 'USDCUSDT', name: 'USD Coin USD', icon: 'https://cryptologos.cc/logos/usd-coin-usdc-logo.png?v=026', marketCap: '61.214B', volume: '12.144B', trending: false }
+    ];
+  
+    let lastPrices = {}, priceHistory = {}, filter = 'all', charts = {}, largeChart = null, selectedSymbol = 'BTCUSDT';
+  
+    function renderTable(prices = {}) {
+      const tbody = document.querySelector('#crypto-table tbody');
+      let filtered = cryptos.filter(c => filter === 'all' || (filter === 'trending' ? c.trending : true));
+  
+      if (filter !== 'all' && filter !== 'trending') {
+        const key = filter === 'most-active' ? 'volume' : 'changePct';
+        filtered = filtered.map(c => ({...c, [key]: parseFloat(prices[c.symbol]?.[key] || c.volume.replace(/[^0-9.]/g, ''))}))
+                           .sort((a, b) => filter === 'top-losers' ? a.changePct - b.changePct : b[key] - a[key])
+                           .slice(0, 5);
+      }
+  
+      tbody.innerHTML = filtered.map(crypto => {
+        const priceData = prices[crypto.symbol] || {};
+        const price = priceData.price || 'Loading...';
+        const change = priceData.change || '';
+        const changePct = priceData.changePct || '';
+        const volume = priceData.volume || crypto.volume;
+        const changeClass = change && parseFloat(change) < 0 ? 'crypto-negative' : 'crypto-positive';
+        return `
+          <tr data-symbol="${crypto.symbol}">
+            <td class="crypto-symbol"><img src="${crypto.icon}" alt="${crypto.symbol}">${crypto.symbol.replace('USDT','-USD')}</td>
+            <td>${crypto.name}</td>
+            <td>${price}</td>
+            <td class="${changeClass}">${change ? (change > 0 ? '+' : '') + change : ''}</td>
+            <td class="${changeClass}">${changePct ? (changePct > 0 ? '+' : '') + changePct + '%' : ''}</td>
+            <td>${crypto.marketCap}</td>
+            <td>${volume}</td>
+            <td class="crypto-chart-cell"><canvas id="chart-${crypto.symbol}" class="crypto-chart-canvas"></canvas></td>
+          </tr>
+        `;
+      }).join('');
+  
+      setTimeout(drawCharts, 0);
+      tbody.querySelectorAll('tr').forEach(row => {
+        row.onclick = () => {
+          selectedSymbol = row.getAttribute('data-symbol');
+          updateLargeChart();
+        };
+      });
+    }
+  
+    function drawCharts() {
+      document.querySelectorAll('.crypto-chart-canvas').forEach(canvas => {
+        const symbol = canvas.id.replace('chart-', '');
+        const data = priceHistory[symbol] || [];
+        charts[symbol]?.destroy();
+        charts[symbol] = new Chart(canvas, {
+          type: 'line',
+          data: {
+            labels: data.map((_, i) => i),
+            datasets: [{ data, borderColor: '#4b3fc9', backgroundColor: 'rgba(75,63,201,0.08)', borderWidth: 2, pointRadius: 0, fill: true, tension: 0.3 }]
+          },
+          options: { responsive: false, plugins: { legend: { display: false }, tooltip: { enabled: false } }, scales: { x: { display: false }, y: { display: false } } }
+        });
+      });
+    }
+  
+    function updateLargeChart() {
+      const ctx = document.getElementById('large-chart').getContext('2d');
+      largeChart?.destroy();
+      const data = priceHistory[selectedSymbol] || [];
+      const crypto = cryptos.find(c => c.symbol === selectedSymbol);
+      document.getElementById('large-chart-title').textContent = `${crypto?.name || selectedSymbol} (${selectedSymbol}) - Live Chart`;
+      largeChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: data.map((_, i) => i),
+          datasets: [{ label: crypto?.name || selectedSymbol, data, borderColor: '#4b3fc9', backgroundColor: 'rgba(75,63,201,0.08)', borderWidth: 3, pointRadius: 0, fill: true, tension: 0.3 }]
+        },
+        options: { responsive: true, plugins: { legend: { display: false } }, scales: { x: { display: false }, y: { display: true, grid: { color: '#23272f' }, ticks: { color: '#bfc8d6' } } } }
+      });
+    }
+  
+    const ws = new WebSocket('wss://stream.binance.com:9443/ws/!miniTicker@arr');
+    ws.onmessage = event => {
+      const data = JSON.parse(event.data);
+      data.forEach(ticker => {
+        const symbol = ticker.s;
+        if (cryptos.some(c => c.symbol === symbol)) {
+          const prev = parseFloat(lastPrices[symbol]?.price.replace(/,/g, '') || ticker.c);
+          const price = parseFloat(ticker.c);
+          lastPrices[symbol] = {
+            price: price.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 8}),
+            change: (price - prev).toFixed(2),
+            changePct: prev ? ((price - prev) / prev * 100).toFixed(2) : '0.00',
+            volume: parseFloat(ticker.v).toLocaleString(undefined, {maximumFractionDigits: 3})
+          };
+          priceHistory[symbol] = [...(priceHistory[symbol] || []), price].slice(-60);
+        }
+      });
+      renderTable(lastPrices);
+      updateLargeChart();
+    };
+  
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+        filter = this.getAttribute('data-filter');
+        renderTable(lastPrices);
+        updateLargeChart();
+      });
+    });
+  
+    renderTable();
+    updateLargeChart();
+  </script>
+  
+</html>
